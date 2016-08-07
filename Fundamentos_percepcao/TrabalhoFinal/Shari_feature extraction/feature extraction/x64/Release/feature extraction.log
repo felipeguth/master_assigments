@@ -1,0 +1,11 @@
+﻿Build started 13/12/2012 11:30:21.
+     1>Project "C:\Users\Felipe\Dropbox\Mestrado - FURG\Engenharia de Computação\7_Fundamentos_percepcao\TrabalhoFinal\Shari_feature extraction\feature extraction\feature extraction.vcxproj" on node 2 (Build target(s)).
+     1>ClCompile:
+         C:\Program Files (x86)\Microsoft Visual Studio 11.0\VC\bin\x86_amd64\CL.exe /c /IC:\opencv\build\include\opencv /IC:\opencv\build\include /I\include /Zi /nologo /W3 /WX- /O2 /Oi /GL /D WIN32 /D NDEBUG /D _CONSOLE /D _UNICODE /D UNICODE /Gm- /EHsc /MD /GS /Gy /fp:precise /Zc:wchar_t /Zc:forScope /Yu"stdafx.h" /Fp"x64\Release\feature extraction.pch" /Fo"x64\Release\\" /Fd"x64\Release\vc110.pdb" /Gd /TP /errorReport:prompt extractBOW.cpp
+         extractBOW.cpp
+     1>extractBOW.cpp(8): fatal error C1083: Cannot open precompiled header file: 'x64\Release\feature extraction.pch': No such file or directory
+     1>Done Building Project "C:\Users\Felipe\Dropbox\Mestrado - FURG\Engenharia de Computação\7_Fundamentos_percepcao\TrabalhoFinal\Shari_feature extraction\feature extraction\feature extraction.vcxproj" (Build target(s)) -- FAILED.
+
+Build FAILED.
+
+Time Elapsed 00:00:00.22

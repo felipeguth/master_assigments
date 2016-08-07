@@ -1,0 +1,11 @@
+frequencia senoide... 1, 2 3 x frequencia senoide
+
+transformada de furier funcao que descreve blocos e caracteristicas de
+amplitude, frequencia e defasagem
+
+somatorio de transformadas de furrie geram onda usando soma de senos
+
+amplitude = varia at[e e volta
+
+baixa frequencia - baixa vareabilidade
+alta frequencia - variacao rapida no tempo

@@ -1,0 +1,3 @@
+Classificador
+Bag of words
+Classificador SVM - kernel classifica amostras na nova dimensão

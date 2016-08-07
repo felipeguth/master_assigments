@@ -1,0 +1,134 @@
+//Problema da mochila
+//Felipe Guth - 99781
+
+#include <stdio.h>
+#include <stdlib.h>
+
+#define MAX 1000
+#define itens 5 
+
+//struct do item
+typedef struct item{
+        int codigo;
+        float peso;
+        float valor;
+        float valorEspec;
+} ITEM;
+
+ITEM item[itens];
+float capacidade = 50; 
+
+
+int main (){
+        inicializa();
+        printf("Estado Final da mochila: %.2f \n", mochila());
+}
+
+
+//////////////////FUNçÔES
+
+
+
+
+// Inicializa itens
+void inicializa(){
+   
+    item[0].codigo = 0;
+    item[0].peso = 20.0;
+    item[0].valor = 550.0;
+    item[0].valorEspec = item[0].valor / item[0].peso;
+    
+    item[1].codigo = 1;
+    item[1].peso = 10.0;
+    item[1].valor = 150.0;
+    item[1].valorEspec = item[1].valor / item[1].peso;
+
+    item[2].codigo = 2;
+    item[2].peso = 40.0;
+    item[2].valor = 300.0;
+    item[2].valorEspec = item[2].valor / item[2].peso;
+    
+    item[3].codigo = 3;
+    item[3].peso = 30.0;
+    item[3].valor = 400.0;
+    item[3].valorEspec = item[3].valor / item[3].peso;
+        
+    item[4].codigo = 4;
+    item[4].peso = 20.0;
+    item[4].valor = 100.0;
+    item[4].valorEspec = item[4].valor / item[4].peso;
+}
+
+//lógica da mochila fracionaria
+float mochila(){
+
+	float vetResult[itens] = {0,0,0,0,0};
+        float resultado = 0.0;
+        int j = itens-1;
+        int i = -1;    
+        orderByVal();
+        
+        while (j>= 0 && item[j].peso <= capacidade){ 
+				vetResult[j] = 1.0;				
+				capacidade = (capacidade - item[j].peso);       
+          j--;
+        } 
+        
+        if (j >= 0){			
+		  vetResult[j] = capacidade/item[j].peso;
+          i = j-1;
+          for (; i <=0; i--){
+             vetResult[i] = 0.0;
+          }
+       }  
+           
+       i = 0;      
+       for(; i < itens; i++){
+			resultado+= vetResult[i]*item[i].valor;
+			if (vetResult[i] != 0.00){
+				printf("Cod It: %d,  Peso: %f,  Valor Especifico: %f, Valor: %f, Qtd na Mochila: %f, qtde*valor: %.2f, Resul Parcial: %.2f \n", item[i].codigo, item[i].peso, item[i].peso/ item[i].valorEspec, item[i].valor, vetResult[i], item[i].valor*vetResult[i], resultado);		
+			}	
+       } 
+       return resultado;
+}
+
+void mostraitens(){
+       int i = 0;
+       for(; i < itens; i++){
+            printf("item %d: peso: %f, valor: %f, valor Especifico: %f \n ", item[i].codigo, item[i].peso, item[i].valor, item[i].valorEspec);
+       } 
+}
+
+
+void orderByVal(){
+      int i = 0;
+      int j = 0;
+      ITEM itemAUX;
+      int posicao_troca = -1;
+      float menor  = MAX;
+      for (; i < itens; i++){
+           posicao_troca = -1;     
+           menor = item[i].valorEspec;                 
+           j =  i+1;       
+           if (j < itens){
+                for (; j < itens; j++){
+                        if (item[j].valorEspec < menor){
+                                menor = item[j].valorEspec;
+                                posicao_troca = j;        
+                        } 
+                }  
+                if (posicao_troca != -1){
+                      itemAUX = item[i];                    
+                      item[i] =  item[posicao_troca];                     
+                      item[posicao_troca] = itemAUX;     
+                }                
+           }        
+      }  
+}
+
+
+
+
+
+
+

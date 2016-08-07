@@ -1,0 +1,34 @@
+//99781 - Felipe Guth
+//Qual é o número máximo de regiões Ln determinado por n retas no plano
+#include <stdio.h>
+
+int nRetas, cont;
+int LnRegioes;
+
+void calculaRegioes(int n) //função recursiva
+{
+	printf("\n num reg %d", n);
+	
+  	if (n==0)
+	{
+		LnRegioes = 1;
+		return 1;
+	}
+	else
+	{
+		return calculaRegioes(n-1) + n;
+		//cont ++;
+		//calculaRegioes(n-1);
+	}
+};
+
+int main(){
+   printf("Quantidade de retas: ");
+   scanf("%d",&nRetas);
+   calculaRegioes(nRetas); //Origem, Destino, Auxiliar
+   //LnRegioes = cont;
+   printf("\n numero de regioes = %d \n", LnRegioes);
+   return 0;
+}
+
+

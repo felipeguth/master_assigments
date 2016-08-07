@@ -1,0 +1,128 @@
+//Problema da mochila
+//Felipe Guth - 99781
+
+#include <stdio.h>
+#include <stdlib.h>
+
+#define MAX_VALOR 1000000
+#define QTDE_ITENS 5 // QTDE DE ITENS DISPONIVEL
+
+typedef struct item{
+        int codigo;
+        float peso;
+        float valor;
+        float valorEspec;
+} ITEM;
+
+/*
+Exemplo de Teste:   
+Tome c = 50, n = 4 e p e v definidos pela figura abaixo. 
+A solução do correspondente problema fracionário tem valor 1040.
+p 	40 		30 		20 		10
+v 	840 	600 	400 	100
+*/
+
+ITEM vetItem[QTDE_ITENS];
+float cargaMAX = 50; // CARGA MAXIMA
+
+// ITENS
+void inicializaItens(){
+   
+    vetItem[0].codigo = 0;
+    vetItem[0].peso = 40.0;
+    vetItem[0].valor = 840.0;
+    vetItem[0].valorEspec = vetItem[0].valor / vetItem[0].peso;
+    
+    vetItem[1].codigo = 1;
+    vetItem[1].peso = 30.0;
+    vetItem[1].valor = 600.0;
+    vetItem[1].valorEspec = vetItem[1].valor / vetItem[1].peso;
+
+    vetItem[2].codigo = 2;
+    vetItem[2].peso = 20.0;
+    vetItem[2].valor = 400.0;
+    vetItem[2].valorEspec = vetItem[2].valor / vetItem[2].peso;
+    
+    vetItem[3].codigo = 3;
+    vetItem[3].peso = 10.0;
+    vetItem[3].valor = 100.0;
+    vetItem[3].valorEspec = vetItem[3].valor / vetItem[3].peso;
+        
+    vetItem[4].codigo = 4;
+    vetItem[4].peso = 20.0;
+    vetItem[4].valor = 300.0;
+    vetItem[4].valorEspec = vetItem[4].valor / vetItem[4].peso;
+}
+
+void ordenarPorValorEspecifico(){
+      int i = 0;
+      int j = 0;
+      ITEM itemAUX;
+      int posicao_troca = -1;
+      float menor  = MAX_VALOR;
+      for (; i < QTDE_ITENS; i++){
+           posicao_troca = -1;     
+           menor = vetItem[i].valorEspec;                 
+           j =  i+1;       
+           if (j < QTDE_ITENS){
+                for (; j < QTDE_ITENS; j++){
+                        if (vetItem[j].valorEspec < menor){
+                                menor = vetItem[j].valorEspec;
+                                posicao_troca = j;        
+                        } 
+                }  
+                if (posicao_troca != -1){
+                      itemAUX = vetItem[i];                    
+                      vetItem[i] =  vetItem[posicao_troca];                     
+                      vetItem[posicao_troca] = itemAUX;     
+                }                
+           }        
+      }  
+}
+
+void imprimeItens(){
+       int i = 0;
+       for(; i < QTDE_ITENS; i++){
+            printf("Item %d: Peso: %f, Valor: %f, Valor Espec: %f \n ", vetItem[i].codigo, vetItem[i].peso, vetItem[i].valor, vetItem[i].valorEspec);
+       } 
+}
+
+float mochila(){
+        ordenarPorValorEspecifico();
+        float vetResult[QTDE_ITENS] = {0,0,0,0,0};
+        float resultado = 0.0;
+        int j = QTDE_ITENS-1;
+        int i = -1;    
+        while (j>= 0 && vetItem[j].peso <= cargaMAX){ // MOCHILA FRACIONARIA - PARA MOCHILA BOOLEANA COMENTAR && vetItem[j].peso <= cargaMAX 					
+			// if(vetItem[j].peso <= cargaMAX){  // MOCHILA BOOLEANA - DESCOMENTAR O IF
+				vetResult[j] = 1.0;				
+				cargaMAX = (cargaMAX - vetItem[j].peso);       
+			//}	
+          j--;
+        } 
+        // TRECHO MOCHILA FRACIONARIA  - PARA MOCHILA BOOLEANA COMENTAR TODO O TRECHO       
+        if (j >= 0){			
+		  vetResult[j] = cargaMAX/vetItem[j].peso;
+          i = j-1;
+          for (; i <=0; i--){
+             vetResult[i] = 0.0;
+          }
+       }  
+       // TRECHO MOCHILA FRACIONARIA
+       
+       i = 0;      
+       for(; i < QTDE_ITENS; i++){
+			resultado+= vetResult[i]*vetItem[i].valor;
+			if (vetResult[i] != 0.000000){
+				printf("Item: %d,  Peso: %f,  Valor Espec: %f, Valor: %f, Qtde Colocada na Mochila: %f, Qtde*Valor: %.2f, Resultado Parcial: %.2f \n", vetItem[i].codigo, vetItem[i].peso, vetItem[i].peso/ vetItem[i].valorEspec, vetItem[i].valor, vetResult[i], vetItem[i].valor*vetResult[i], resultado);		
+			}	
+       } 
+       return resultado;
+}
+
+
+int main (){
+        inicializaItens();
+        printf("Resultado Final: %.2f \n", mochila());
+}
+
